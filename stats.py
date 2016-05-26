@@ -32,3 +32,9 @@ class Estadisticas:
 
     def desviacion(self):
         return sqrt(self.varianza())
+
+if __name__ == '__main__':
+    prueba = [10, 18, 15, 12, 3, 6, 5, 7]
+    e = Estadisticas(prueba)
+    assert e.varianza() == 23.75
+    assert e.desviacion() >= 4.8 and e.desviacion() <= 4.9

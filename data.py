@@ -39,9 +39,9 @@ class Pandax:
         result.reset_index().to_json(path_or_buf=nombre,orient='records')
         return results
 
-    def jsontopanda(self,archivoJSON):
+    def jsontopanda(self,archivoJSON,columna):
         '''Imprime en consola el panda dataframe contenido en un archivo .json'''
-        return pandas.read_json(path_or_buf=archivoJSON,dtype={'valorDemanda': int})
+        return pandas.read_json(path_or_buf=archivoJSON)[columna]
 
     def removeALL(self,files):
         '''Recibe una lista con nombres de archivos y los elimina; Elimina todos los archivos que fueron extraidos del archivo .zip'''
@@ -78,3 +78,10 @@ class Pandax:
                 temp.append(datetime.datetime.strftime(semanas[element][i],"%d-%m-%Y").replace("-","."))
             fechas[element] = temp
         return fechas
+
+
+if __name__ == '__main__':
+    p = Pandax()
+    demanda = p.jsontopanda("11.04.2016.mexico.txt","valorDemanda")
+    for i,e in enumerate(demanda):
+        print e + "+"
