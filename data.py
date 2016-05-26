@@ -1,5 +1,6 @@
 import sys
-import termcolor
+from termcolor import colored
+
 usage = "python %s filename.zip"
 if len(sys.argv) != 2:
     print >> sys.stderr, \
@@ -47,7 +48,7 @@ class Pandax:
         '''Recibe una lista con nombres de archivos y los elimina; Elimina todos los archivos que fueron extraidos del archivo .zip'''
         for f in files:
             os.remove(f)
-        print "removed"
+        print colored("fin","red")
     def get_columns():
         df = DataFrame(randn(8, 4), index=dates, columns=['A', 'B', 'C', 'D'])
 

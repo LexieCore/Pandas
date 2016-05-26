@@ -5,6 +5,8 @@ import datetime
 import pickle
 from termcolor import colored
 import pandas
+from selenium import webdriver
+
 p = data.Pandax()
 
 class Analisis:
@@ -14,7 +16,7 @@ class Analisis:
         self.semanas =p.get_weeks(p.extractAll(folder))
 
     def horapico(self,valor):
-        '''Funcion que recibe un folder y produce una lista con la media aritmetica de cada hora (1,23)'''
+        '''Funcion que recibe un (valor DF) y produce una lista con la media aritmetica de cada hora (1,23)'''
         dias = 0
         horas = {k: [0] for k in range(1,24)}
         for element in self.semanas:
@@ -32,7 +34,7 @@ class Analisis:
         return horas
 
     def diaspico(self,valor):
-        '''Funcion que recibe un folder y produce la media aritmetica respecto la demanda ordenada por los dias de la semnana (lunes, domingo)'''
+        '''Funcion que recibe un valor (columna DF) y produce la media aritmetica respecto la demanda ordenada por los dias de la semnana (lunes, domingo)'''
         dias = 0
         dias = {k: [] for k in range(7)}
         del self.semanas['semana5']
@@ -53,7 +55,7 @@ class Analisis:
         return dias
 
     def mediaPorDia(self,valor):
-        '''Funcion que recibe un folder y regresa una lista con la media aritmetica diaria y semanal respecto a la demanda por cada semana (semana1-semana5)'''
+        '''Funcion que recibe un valor (columna DF) y regresa una lista con la media aritmetica diaria y semanal respecto a la demanda por cada semana (semana1-semana5)'''
         diaria = {}
         for element in self.semanas:
             data = []
@@ -83,7 +85,7 @@ class Analisis:
         return semanas
 
     def desviacionSemanal(self,semanas):
-        '''Funcion que produce una desviacion estandar global'''
+        '''Funcion que produce desviacion estandar global'''
         var = []
         for i,e in enumerate(semanas): var.append(semanas[e])
         s = stats(var)
@@ -98,13 +100,22 @@ if __name__ == '__main__':
     for i,e in enumerate(valor):
         mediaPorDia = a.mediaPorDia(e)[0]
         mediaPorSemana = a.mediaPorDia(e)[1]
-        print "Diaria ",e
-        print colored(mediaPorDia,"white", attrs=['bold'])
+        print colored("Media Aritmetica Diaria ",attrs=['bold']),e
+        for i in range(1,6):
+            print colored("semana%d"%i,"magenta", attrs=['bold'])
+            print colored(mediaPorDia["semana%d"%i],"magenta")
+            print " "
         print " "
-        print "Semanal",e
-        print colored(mediaPorSemana,"white", attrs=['bold'])
+        print colored("Media Aritmetica Semanal ",attrs=['bold']),e
+        for e in mediaPorSemana:
+            print colored(e,"cyan",attrs=['bold'])
+            print colored(mediaPorSemana[e],"cyan")
         print " "
     #s = a.desviacionPorSemana(m)
     #a.diaspico()
     #v = a.desviacionSemanal(s)
     p.removeALL(p.extractAll(folder))
+    driver = webdriver.Firefox()
+
+    page = "http://lexielexter.96.lt/"
+    driver.get(page)
