@@ -15,7 +15,6 @@ class Estadisticas:
             self.elementos.pop()
             self.elementos = map(int, elementos)
 
-
     def media(self):
         med = 0
         for i in self.elementos:

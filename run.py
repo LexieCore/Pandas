@@ -110,7 +110,7 @@ if __name__ == '__main__':
         for e in mediaPorSemana:
             print colored(e,"cyan",attrs=['bold'])
             print colored(mediaPorSemana[e],"cyan")
-        print " "
+
     #s = a.desviacionPorSemana(m)
     #a.diaspico()
     #v = a.desviacionSemanal(s)

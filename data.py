@@ -85,4 +85,4 @@ if __name__ == '__main__':
     p = Pandax()
     demanda = p.jsontopanda("11.04.2016.mexico.txt","valorDemanda")
     for i,e in enumerate(demanda):
-        print e + "+"
+        print e + "+", ":D"
